@@ -1,21 +1,28 @@
 <template>
-  <div>
-      <section class="section">
-          <div class="columns is-flex-wrap-wrap is-justify-content-center">
-            <Products v-for="product in this.$store.state.products" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
-          </div>
-      </section>
-  </div>
+  <main class="container page-wrapper">
+      <Filters />
+      <Showcase />
+  </main>
 </template>
 
 <script>
 export default {
+
   components: {
-    Products: () => import("@/components/Products.vue")
+    Showcase: () => import("@/components/Showcase.vue"),
+    Filters: () => import("@/components/Filters.vue")
   },
 
-  created(){
-    this.$store.dispatch("fetchProducts");
-  }
 }
 </script>
+
+<style scoped>
+
+
+@media screen and (min-width:1200px){
+  .page-wrapper{
+    display: flex;
+    justify-content:space-between;
+  }
+}
+</style>

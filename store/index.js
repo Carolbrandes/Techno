@@ -1,5 +1,6 @@
 export const state = () => ({
-  products: []
+  products: [],
+  categorySelected: false
 });
 
 export const mutations = {
@@ -13,5 +14,15 @@ export const actions = {
     fetch("/api/produtos.json")
       .then(response => response.json())
       .then(json => context.commit("SET_PRODUCTS", json));
+  }
+};
+
+export const getters = {
+  productCategory(state) {
+    return state.products.map(product => product.categoria);
+  },
+
+  notebooks(state) {
+    return state.products.filter(product => product.categoria === "notebook");
   }
 };
