@@ -1,10 +1,10 @@
 <template>
    <div>
-      <section class="products-showcase" v-show="$store.state.categorySelected.length <= 1">
+      <section class="products-showcase" v-show="this.$store.state.categorySelected.length <= 1 && this.$store.state.categorySelected.includes('todos')">
           <Products v-for="product in this.$store.state.products" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
       </section>
 
-      <section class="products-showcase" v-show="this.$store.state.categorySelected.length > 0 && this.$store.state.categorySelected.includes('notebook')">
+      <section class="products-showcase" v-show="this.$store.state.categorySelected.length > 0 && this.$store.state.categorySelected.includes('notebook') && !this.$store.state.categorySelected.includes('todos')">
           <Products v-for="product in this.$store.getters.notebooks" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
       </section>
 

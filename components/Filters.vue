@@ -25,15 +25,21 @@ export default {
   },
 
   methods: {
-    handleCategorySelected(){
+    handleCategorySelected(event){
+      console.log("alteracao checkbox")
+      console.log(event)
       if(this.$store.state.categorySelected.includes("todos") && this.$store.state.categorySelected.length > 1){
           console.log("tem que remover o todos")
           this.$store.commit("SET_CATEGORY", this.$store.state.categorySelected.filter(category => category !== "todos"))
       }
 
       if(this.$store.state.categorySelected.length === 0){
-        this.$store.commit("SET_CATEGORY", this.$store.state.categorySelected.push("todos"))
+        console.log("array vazio")
+        setTimeout(() => {
+           this.$store.commit("SET_CATEGORY", ["todos"])
+        }, 500);
       }
+
     }
   },
 
