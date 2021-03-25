@@ -1,8 +1,8 @@
 <template>
-    <div class="product column is-flex is-flex-direction-column is-align-items-center mb-5 mx-3">
+    <div class="product mb-5 pb-5">
       <img class="product-image" :src="src" :alt="name">
       <h4 class="product-name has-text-weight-bold has-text-centered">{{name}}</h4>
-      <p class="product-price has-text-weight-bold has-text-centered pb-3">R$ {{price}}</p>
+      <p class="product-price has-text-weight-bold has-text-centered pb-3">{{price | money}}</p>
       <button class="product-buy" type="button">Comprar</button>
     </div>
 </template>
@@ -14,25 +14,45 @@ export default {
 
     }
   },
-  props: ["name", "src", "price"]
+  props: ["name", "src", "price"],
+
+  filters: {
+    money(valor){
+      return valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' })
+    }
+  }
 }
 </script>
 
 <style scoped>
 
   .product{
-    width: 50%
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .product-image{
     width: 100%;
     display: block;
+    margin-bottom: 1rem;
+  }
+
+  .product-name{
+    font-size: 1.3rem;
+  }
+
+  .product-price{
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #8f1515
   }
 
 
 @media screen and (min-width: 1200px){
   .product{
-      width: 40%
+      width: 30%
   }
 }
 </style>

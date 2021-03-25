@@ -1,11 +1,15 @@
 export const state = () => ({
   products: [],
-  categorySelected: false
+  categorySelected: ["todos"]
 });
 
 export const mutations = {
   SET_PRODUCTS(state, payload) {
     state.products = payload;
+  },
+
+  SET_CATEGORY(state, payload) {
+    state.categorySelected = payload;
   }
 };
 
