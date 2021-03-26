@@ -26,7 +26,21 @@ export const getters = {
     return state.products.map(product => product.categoria);
   },
 
-  notebooks(state) {
-    return state.products.filter(product => product.categoria === "notebook");
+  productsFiltered(state) {
+    if (state.categorySelected.includes("todos") === false) {
+      const list = [];
+
+      state.products.forEach(prod => {
+        state.categorySelected.forEach(categ => {
+          if (prod.categoria === categ) {
+            list.push(prod);
+          }
+        });
+      });
+
+      return list;
+    } else {
+      return state.products;
+    }
   }
 };

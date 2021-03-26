@@ -3,7 +3,7 @@
       <div>
         <h4>Categorias</h4>
          <div class="form-check">
-          <input checked v-model="categorySelected" class="mr-2" type="checkbox" name="category" value="todos" id="todos">
+          <input checked v-model="categorySelected" class="mr-2" type="checkbox" name="category" value="todos" id="todos" @change="handleCategorySelected">
           <label for="todos">Todos</label>
         </div>
 
@@ -11,9 +11,6 @@
           <input v-model="categorySelected" class="mr-2" type="checkbox" name="category" :id="category" :value="category" @change="handleCategorySelected">
           <label :for="category">{{category}}</label>
         </div>
-
-        <p>{{this.$store.state.categorySelected}}</p>
-
       </div>
     </section>
 </template>
@@ -25,21 +22,13 @@ export default {
   },
 
   methods: {
-    handleCategorySelected(event){
-      console.log("alteracao checkbox")
-      console.log(event)
-      if(this.$store.state.categorySelected.includes("todos") && this.$store.state.categorySelected.length > 1){
-          console.log("tem que remover o todos")
-          this.$store.commit("SET_CATEGORY", this.$store.state.categorySelected.filter(category => category !== "todos"))
+    handleCategorySelected({target}){
+      if(target.value === "todos"){
+        console.log(this.$store.state.categorySelected)
+        this.$store.commit("SET_CATEGORY",this.$store.state.categorySelected.filter(c => c === "todos"))
+      }else{
+        this.$store.commit("SET_CATEGORY",this.$store.state.categorySelected.filter(c => c !== "todos"))
       }
-
-      if(this.$store.state.categorySelected.length === 0){
-        console.log("array vazio")
-        setTimeout(() => {
-           this.$store.commit("SET_CATEGORY", ["todos"])
-        }, 500);
-      }
-
     }
   },
 
@@ -77,6 +66,7 @@ h4{
     .filters{
       width: 20vw;
       min-width: 200px;
+      min-height: 100vh;
       border-right: 1px solid #000;
     }
 }

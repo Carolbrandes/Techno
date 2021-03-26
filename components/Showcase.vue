@@ -1,14 +1,8 @@
 <template>
    <div>
-      <section class="products-showcase" v-show="this.$store.state.categorySelected.length <= 1 && this.$store.state.categorySelected.includes('todos')">
-          <Products v-for="product in this.$store.state.products" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
+      <section class="products-showcase">
+          <Products v-for="product in this.$store.getters.productsFiltered" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
       </section>
-
-      <section class="products-showcase" v-show="this.$store.state.categorySelected.length > 0 && this.$store.state.categorySelected.includes('notebook') && !this.$store.state.categorySelected.includes('todos')">
-          <Products v-for="product in this.$store.getters.notebooks" :key="product.id" :name="product.nome" :price="product.preco" :src="product.img"></Products>
-      </section>
-
-
    </div>
 </template>
 
