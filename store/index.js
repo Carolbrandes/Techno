@@ -1,6 +1,7 @@
 export const state = () => ({
   products: [],
-  categorySelected: ["todos"]
+  categorySelected: ["todos"],
+  orderByPrice: "menorPreco"
 });
 
 export const mutations = {
@@ -10,6 +11,10 @@ export const mutations = {
 
   SET_CATEGORY(state, payload) {
     state.categorySelected = payload;
+  },
+
+  SET_ORDER_PRICE(state, payload) {
+    state.orderByPrice = payload;
   }
 };
 
@@ -27,6 +32,14 @@ export const getters = {
   },
 
   productsFiltered(state) {
+    if (state.orderByPrice === "menorPreco") {
+      state.products = state.products.sort((a, b) => a.preco - b.preco);
+    }
+
+    if (state.orderByPrice === "maiorPreco") {
+      state.products = state.products.sort((a, b) => b.preco - a.preco);
+    }
+
     if (state.categorySelected.includes("todos") === false) {
       const list = [];
 
