@@ -1,7 +1,8 @@
 export const state = () => ({
   products: [],
   categorySelected: ["todos"],
-  orderByPrice: "menorPreco"
+  orderByPrice: "menorPreco",
+  productSelected: {}
 });
 
 export const mutations = {
@@ -15,6 +16,10 @@ export const mutations = {
 
   SET_ORDER_PRICE(state, payload) {
     state.orderByPrice = payload;
+  },
+
+  SET_PRODUCT_SELECTED(state, payload) {
+    state.productSelected = payload;
   }
 };
 
@@ -23,6 +28,12 @@ export const actions = {
     fetch("/api/produtos.json")
       .then(response => response.json())
       .then(json => context.commit("SET_PRODUCTS", json));
+  },
+
+  fetchProductSelected(context, payload) {
+    fetch(`/api/${payload}/dados.json`)
+      .then(response => response.json())
+      .then(json => context.commit("SET_PRODUCT_SELECTED", json));
   }
 };
 

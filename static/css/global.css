@@ -1,13 +1,21 @@
 .product-buy{
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   height: 45px;
-  border: none;
-  outline: none;
   background-color: black;
   color: #fff;
   text-transform: uppercase;
   font-size: 1.2rem;
   padding: 0 2rem;
   cursor: pointer;
+  transition: .3s;
 }
+
+.product-buy:hover{
+  background-color: #222222;
+  color: #fff;
+}
+
+
