@@ -30,10 +30,11 @@ export const actions = {
       .then(json => context.commit("SET_PRODUCTS", json));
   },
 
-  fetchProductSelected(context, payload) {
-    fetch(`/api/${payload}/dados.json`)
-      .then(response => response.json())
-      .then(json => context.commit("SET_PRODUCT_SELECTED", json));
+  getProductSelected(context, payload) {
+    context.commit(
+      "SET_PRODUCT_SELECTED",
+      context.state.products.find(product => product.id === payload)
+    );
   }
 };
 
