@@ -2,7 +2,8 @@ export const state = () => ({
   products: [],
   categorySelected: ["todos"],
   orderByPrice: "menorPreco",
-  productSelected: {}
+  productSelected: {},
+  shoppingBag: []
 });
 
 export const mutations = {
@@ -20,6 +21,17 @@ export const mutations = {
 
   SET_PRODUCT_SELECTED(state, payload) {
     state.productSelected = payload;
+  },
+
+  SET_SHOPPING_BAG(state, payload) {
+    if (payload.acao === "add") {
+      state.shoppingBag.unshift(payload.produto);
+    } else {
+      state.shoppingBag.splice(
+        state.shoppingBag.find(p => p.cod === payload.produto.cod),
+        1
+      );
+    }
   }
 };
 
@@ -67,5 +79,9 @@ export const getters = {
     } else {
       return state.products;
     }
+  },
+
+  amountShoppingBag(state) {
+    return state.shoppingBag.reduce((acc, current) => acc + current.amount, 0);
   }
 };

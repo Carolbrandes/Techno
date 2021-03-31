@@ -1,8 +1,13 @@
 <template>
     <header>
-        <div class="container is-flex is-justify-content-space-between py-2">
+        <div class="container is-flex is-justify-content-space-between is-align-items-center py-2">
             <NuxtLink to="/" class="logo">
                 <img src="~/assets/techno.svg" alt="Techno">
+            </NuxtLink>
+
+             <NuxtLink to="/sacola-de-compras" class="sacola-compras has-text-white is-flex is-align-items-center">
+                <img class="mr-2" src="~/assets/bolsa-de-compras.svg" alt="sacola de compras">
+                {{ this.$store.state.shoppingBag && this.$store.getters.amountShoppingBag }}
             </NuxtLink>
         </div>
     </header>
@@ -24,7 +29,14 @@ header {
     width: 100px;
 }
 
-.logo img {
+.logo img, .sacola-compras img {
     width: 100%;
 }
+
+.sacola-compras{
+  width: 40px;
+}
+
+
+
 </style>

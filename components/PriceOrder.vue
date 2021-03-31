@@ -30,7 +30,7 @@ select {
     border: none;
     outline: none;
     height: 40px;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
