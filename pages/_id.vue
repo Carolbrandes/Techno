@@ -36,13 +36,6 @@
 
 <script>
 export default {
-
-    filters: {
-        money(valor) {
-            return valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' })
-        }
-    },
-
     created() {
         console.log(this.$route.params.id)
         this.$store.dispatch("getProductSelected", this.$route.params.id)

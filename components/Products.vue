@@ -20,11 +20,6 @@ export default {
     },
     props: ["cod", "nome", "src", "price", "estoque"],
 
-    filters: {
-        money(valor) {
-            return valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' })
-        }
-    },
 
     methods: {
         buy() {
