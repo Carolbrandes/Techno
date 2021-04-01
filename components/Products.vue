@@ -6,7 +6,7 @@
 
         <div class="buttons-wrapper">
             <NuxtLink class="know-product" :to="cod">Ver mais</NuxtLink>
-            <button class="product-buy" @click="buy">Comprar</button>
+            <button class="product-buy" :class="product.estoque === 0 ? 'inactive' : 'active'" :disabled="product.estoque === 0 ? true : false" @click="buy">{{product.estoque === 0 ? 'Esgotado' : 'Comprar'}}</button>
         </div>
     </div>
 </template>
@@ -29,7 +29,9 @@ export default {
     methods: {
         buy() {
             console.log("comprei")
-            if (this.estoque > 0) {
+            if (this.product.estoque !== 0 && this.product.estoque > 0) {
+               this.product.estoque -= 1
+
                 const produto = this.$store.state.shoppingBag.find(p => p.cod === this.cod)
                 if (produto) {
                     this.$store.commit("SET_SHOPPING_BAG", { acao: "remove", produto })
