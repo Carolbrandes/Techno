@@ -83,5 +83,12 @@ export const getters = {
 
   amountShoppingBag(state) {
     return state.shoppingBag.reduce((acc, current) => acc + current.amount, 0);
+  },
+
+  total(state) {
+    return state.shoppingBag.reduce(
+      (acc, current) => current.price * current.amount + acc,
+      0
+    );
   }
 };

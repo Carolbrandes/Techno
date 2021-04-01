@@ -11,6 +11,11 @@
                 <p>{{item.nome}}</p>
                 <p>{{item.amount}}</p>
                 <p>{{item.price | money}}</p>
+                <p>{{item.price * item.amount | money}}</p>
+            </div>
+
+            <div class="column is-10 is-flex is-justify-content-end">
+                <p><b>Total:</b> {{this.$store.getters.total | money}}</p>
             </div>
         </div>
 
@@ -19,18 +24,17 @@
                 <p class="has-text-centered">Sacola Vazia</p>
             </div>
         </div>
-
-        {{this.$store.state.shoppingBag}}
     </div>
 </template>
 
 <script>
 export default {
-   filters: {
+    filters: {
         money(valor) {
             return valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' })
         }
     }
+
 }
 </script>
 
