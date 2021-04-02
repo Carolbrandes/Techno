@@ -5,7 +5,7 @@
       </div>
 
         <section class="products-showcase mt-3">
-            <Products v-for="product in this.$store.getters.productsFiltered" :key="product.id" :cod="product.id" :nome="product.nome" :price="product.preco" :src="product.img" :estoque="product.estoque"></Products>
+            <Products v-for="product in this.$store.getters.productsFiltered" :key="product.id" :cod="product.id" :nome="product.nome" :preco="product.preco" :img="product.img" :estoque="product.estoque"></Products>
         </section>
     </div>
 </template>

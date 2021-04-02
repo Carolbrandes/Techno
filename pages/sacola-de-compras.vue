@@ -5,13 +5,16 @@
         <div class="is-flex is-flex-direction-column is-align-items-center" v-if="this.$store.state.shoppingBag.length > 0">
             <div class="box column is-10 is-flex is-justify-content-space-between is-align-items-center" v-for="item in this.$store.state.shoppingBag" :key="item.cod">
                 <div class="column is-2">
-                    <img class="is-full" :src="item.src" :alt="item.nome">
+                    <img class="is-full" :src="item.img" :alt="item.nome">
                 </div>
 
                 <p>{{item.nome}}</p>
-                <p>{{item.amount}}</p>
-                <p>{{item.price | money}}</p>
-                <p>{{item.price * item.amount | money}}</p>
+                <b-field label="">
+                    <b-numberinput type="is-dark" :value="item.qtd"></b-numberinput>
+                </b-field>
+
+                <p>{{item.preco | money}}</p>
+                <p>{{item.preco * item.qtd | money}}</p>
             </div>
 
             <div class="column is-10 is-flex is-justify-content-end">

@@ -2,7 +2,6 @@ export const state = () => ({
   products: [],
   categorySelected: ["todos"],
   orderByPrice: "menorPreco",
-  productSelected: {},
   shoppingBag: []
 });
 
@@ -17,10 +16,6 @@ export const mutations = {
 
   SET_ORDER_PRICE(state, payload) {
     state.orderByPrice = payload;
-  },
-
-  SET_PRODUCT_SELECTED(state, payload) {
-    state.productSelected = payload;
   },
 
   SET_SHOPPING_BAG(state, payload) {
@@ -40,13 +35,6 @@ export const actions = {
     fetch("/api/produtos.json")
       .then(response => response.json())
       .then(json => context.commit("SET_PRODUCTS", json));
-  },
-
-  getProductSelected(context, payload) {
-    context.commit(
-      "SET_PRODUCT_SELECTED",
-      context.state.products.find(product => product.id === payload)
-    );
   }
 };
 
@@ -82,12 +70,12 @@ export const getters = {
   },
 
   amountShoppingBag(state) {
-    return state.shoppingBag.reduce((acc, current) => acc + current.amount, 0);
+    return state.shoppingBag.reduce((acc, current) => acc + current.qtd, 0);
   },
 
   total(state) {
     return state.shoppingBag.reduce(
-      (acc, current) => current.price * current.amount + acc,
+      (acc, current) => current.preco * current.qtd + acc,
       0
     );
   }

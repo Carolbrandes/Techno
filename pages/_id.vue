@@ -1,24 +1,25 @@
 <template>
-    <main v-if="this.$store.state.productSelected" class="container">
+    <main v-if="product" class="container">
 
         <section class="product-wrapper">
             <div>
-                <img :src="this.$store.state.productSelected.img" :alt="this.$store.state.productSelected.nome">
+              <img :src="product.img" :alt="product.nome">
             </div>
 
             <div class="product-info">
-                <h1 class="product-name">{{this.$store.state.productSelected.nome}}</h1>
-                <p class="product-description">{{this.$store.state.productSelected.descricao}}</p>
-                <p class="product-price">{{this.$store.state.productSelected.preco | money}} </p>
-                <button class="product-buy">Comprar</button>
+                <h1 class="product-name">{{product.nome}}</h1>
+                <p class="product-description">{{product.descricao}}</p>
+                <p class="product-price">{{product.preco | money}}</p>
+                <button class="product-buy" :class="product.estoque === 0 ? 'inactive' : 'active'" :disabled="product.estoque === 0 ? true : false" @click="buy(product)">{{product.estoque === 0 ? 'Esgotado' : 'Comprar'}}</button>
             </div>
         </section>
 
-        <section class="reviews-wrapper">
+
+        <section class="reviews-wrapper pb-5">
             <h2 class="reviews-title">Avaliações</h2>
 
             <div>
-                <div v-for="(avaliacao, index) in this.$store.state.productSelected.reviews" :key="index" class="review">
+                <div v-for="(avaliacao, index) in product.reviews" :key="index" class="review">
                     <cite>{{avaliacao.descricao}}</cite>
 
                     <div class="review-author">
@@ -35,11 +36,57 @@
 </template>
 
 <script>
+import buyMixin from "@/mixins/buy.js"
+
 export default {
+    mixins: [buyMixin],
+    data() {
+        return {
+           product: {cod: '', nome: '', descricao: '', img: '', preco: '', estoque: '', qtd: 1, reviews: []}
+        }
+    },
     created() {
         console.log(this.$route.params.id)
-        this.$store.dispatch("getProductSelected", this.$route.params.id)
+         this.$store.dispatch("fetchProducts");
+    },
+    beforeMount(){
+      console.log("oii")
+      const findProduct = this.$store.state.products.find(p => p.id === this.$route.params.id)
+      console.log(findProduct)
+
+        for (let property in findProduct){
+            console.log(property + " = " + findProduct[property]);
+            if(property === "id"){
+                this.product.cod = findProduct[property]
+            }
+
+            if(property === "nome"){
+                this.product.nome = findProduct[property]
+            }
+
+            if(property === "preco"){
+                this.product.preco = findProduct[property]
+            }
+
+            if(property === "img"){
+                this.product.img = findProduct[property]
+            }
+
+            if(property === "estoque"){
+                this.product.estoque = findProduct[property]
+            }
+
+            if(property === "descricao"){
+                this.product.descricao = findProduct[property]
+            }
+
+            if(property === "reviews"){
+                this.product.reviews = findProduct[property]
+            }
+        }
     }
+
+
 }
 </script>
 
@@ -87,7 +134,6 @@ main {
     text-align: center;
     padding-bottom: 2rem;
 }
-
 
 .review {
     padding-bottom: 2rem;
